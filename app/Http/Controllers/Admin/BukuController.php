@@ -9,11 +9,38 @@ use Illuminate\Support\Facades\Storage;
 
 class BukuController extends Controller
 {
-    public function index()
-    {
-        $bukus = Buku::latest()->paginate(10);
-        return view('admin.buku.index', compact('bukus'));
+    public function index(Request $request)
+{
+    $query = Buku::query();
+
+    if ($request->search) {
+        $query->where(function($q) use ($request) {
+            $q->where('judul_buku', 'like', '%'.$request->search.'%')
+              ->orWhere('pengarang', 'like', '%'.$request->search.'%')
+              ->orWhere('penerbit', 'like', '%'.$request->search.'%');
+        });
     }
+
+    if ($request->kategori && $request->kategori !== 'Semua') {
+        $query->where('kategori', $request->kategori);
+    }
+
+    if ($request->sort == 'az') {
+        $query->orderBy('judul_buku', 'asc');
+    } elseif ($request->sort == 'za') {
+        $query->orderBy('judul_buku', 'desc');
+    } elseif ($request->sort == 'lama') {
+        $query->oldest();
+    } else {
+        $query->latest();
+    }
+
+    $bukus = $query->paginate(10)->withQueryString();
+
+    $kategoris = Buku::select('kategori')->distinct()->pluck('kategori');
+
+    return view('admin.buku.index', compact('bukus','kategoris'));
+}
 
     public function create()
     {

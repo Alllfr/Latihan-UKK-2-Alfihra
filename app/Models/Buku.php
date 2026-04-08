@@ -26,4 +26,9 @@ class Buku extends Model
     {
         return $this->hasMany(Peminjaman::class, 'id_buku', 'id_buku');
     }
+
+    public function getRouteKeyName()
+{
+    return 'id_buku';
+}
 }

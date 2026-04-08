@@ -68,10 +68,17 @@ width:120px;height:160px;object-fit:cover;
 border-radius:10px;border:1px solid var(--border);display:none;
 }
 
+.actions{display:flex;gap:10px;margin-top:10px}
+
 .btn{
-width:100%;padding:12px;border:none;border-radius:12px;
+flex:1;padding:12px;border:none;border-radius:12px;
 background:linear-gradient(135deg,#fbcfe8,#a5d8ff);
-font-weight:700;cursor:pointer;margin-top:10px;
+font-weight:700;cursor:pointer;
+}
+
+.btn-cancel{
+flex:1;text-align:center;padding:12px;border-radius:12px;
+background:#e5e7eb;color:#374151;font-weight:700;text-decoration:none;
 }
 
 .error{
@@ -175,7 +182,10 @@ color:#e11d48;padding:10px;border-radius:10px;font-size:13px;
 </div>
 </div>
 
+<div class="actions">
+<a href="{{ route('admin.buku.index') }}" class="btn-cancel">Batal</a>
 <button class="btn" id="btnSubmit">💾 Simpan</button>
+</div>
 
 </form>
 

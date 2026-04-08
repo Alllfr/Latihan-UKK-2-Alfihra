@@ -166,6 +166,11 @@ background:#fef9c3;
 color:#a16207;
 }
 
+.badge-green{
+background:#dcfce7;
+color:#15803d;
+}
+
 .badge-red{
 background:#fee2e2;
 color:#b91c1c;
@@ -221,12 +226,9 @@ Riwayat
 
 </div>
 
-<form method="POST" action="{{ route('logout') }}">
-@csrf
-<button type="submit" class="logout">
-Logout
-</button>
-</form>
+<a href="{{ route('logout') }}" class="logout">
+Keluar
+</a>
 
 </div>
 
@@ -246,9 +248,7 @@ Logout
 </div>
 
 <div class="page">
-
 @yield('content')
-
 </div>
 
 </div>
@@ -256,7 +256,6 @@ Logout
 </div>
 
 <script>
-
 function updateDate(){
 const now=new Date();
 
@@ -273,7 +272,6 @@ year:"numeric"
 }
 
 updateDate();
-
 </script>
 
 </body>

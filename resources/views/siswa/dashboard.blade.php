@@ -318,9 +318,11 @@
             <div class="chip-avatar">👤</div>
             <span class="chip-name">{{ Auth::user()->name }}</span>
         </div>
-        <form method="POST" action="{{ route('logout') }}" style="display:inline">
+        <a href="{{ route('logout') }}" class="bn-item">
+            <span class="bn-icon">🚪</span>
+            <span>Keluar</span>
+        </a>
             @csrf
-            <button type="submit" class="btn-logout">Keluar</button>
         </form>
     </div>
 </div>
@@ -455,4 +457,4 @@
 </script>
 
 </body>
-</html>
+</html>penge

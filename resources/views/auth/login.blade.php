@@ -1,6 +1,3 @@
-**`resources/views/auth/login.blade.php`**
-
-```blade
 <!DOCTYPE html>
 <html lang="id">
 <head>

@@ -18,107 +18,91 @@
 --white:#ffffff;
 }
 
-/* FULL WIDTH */
 .page{
 width:100%;
 padding:20px 28px;
 }
 
-/* TOOLBAR FIX */
-.toolbar{
-display:flex;
-flex-wrap:wrap;
-gap:14px;
-margin-bottom:26px;
-align-items:center;
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 26px;
+    align-items: stretch;
 }
 
-/* SEARCH FLEX BESAR */
-.search{
-flex:1 1 320px;
-min-width:260px;
-position:relative;
+.search {
+    flex: 1 1 260px;
+    min-width: 0;
+    position: relative;
 }
 
-.search input{
-width:100%;
-padding:12px 16px 12px 42px;
-border-radius:14px;
-border:2px solid transparent;
-background:
-linear-gradient(#fff,#fff) padding-box,
-linear-gradient(135deg,var(--pink),var(--blue)) border-box;
-font-size:14px;
-outline:none;
+.search input {
+    width: 100%;
+    padding: 11px 16px 11px 42px;
+    border-radius: 14px;
+    border: 2px solid transparent;
+    background:
+        linear-gradient(#fff, #fff) padding-box,
+        linear-gradient(135deg, var(--pink), var(--blue)) border-box;
+    font-size: 14px;
+    outline: none;
+    height: 100%;
+    box-sizing: border-box;
 }
 
-.search span{
-position:absolute;
-left:14px;
-top:50%;
-transform:translateY(-50%);
-font-size:14px;
+.search span {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    pointer-events: none;
 }
 
-/* FILTER GROUP */
-.filters{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
+.select-box {
+    flex: 0 0 160px;
+    position: relative;
 }
 
-.filter-btn{
-padding:10px 16px;
-border-radius:12px;
-border:none;
-cursor:pointer;
-font-size:13px;
-font-weight:600;
-background:linear-gradient(135deg,#ffe4ec,#e0f2fe);
-transition:.2s;
-white-space:nowrap;
+.select-box select {
+    width: 100%;
+    height: 100%;
+    min-height: 44px;
+    appearance: none;
+    padding: 10px 38px 10px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 2px solid transparent;
+    background:
+        linear-gradient(#fff, #fff) padding-box,
+        linear-gradient(135deg, var(--pink), var(--blue)) border-box;
+    cursor: pointer;
+    box-sizing: border-box;
 }
 
-.filter-btn:hover{
-transform:translateY(-2px);
+.select-box::after {
+    content: "▼";
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    pointer-events: none;
+    color: var(--muted);
 }
 
-/* SORT */
 .sort{
-margin-left:auto;
-position:relative;
+flex:0 0 160px;
 }
 
-.sort select{
-appearance:none;
-padding:10px 38px 10px 14px;
-border-radius:12px;
-font-size:13px;
-font-weight:600;
-border:2px solid transparent;
-background:
-linear-gradient(#fff,#fff) padding-box,
-linear-gradient(135deg,var(--pink),var(--blue)) border-box;
-cursor:pointer;
-}
-
-.sort:after{
-content:"▼";
-position:absolute;
-right:12px;
-top:50%;
-transform:translateY(-50%);
-font-size:12px;
-}
-
-/* GRID FULL */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
 gap:24px;
 }
 
-/* CARD */
 .card{
 background:white;
 border-radius:20px;
@@ -134,7 +118,6 @@ transform:translateY(-6px) scale(1.02);
 box-shadow:0 18px 40px rgba(0,0,0,0.14);
 }
 
-/* IMAGE */
 .cover{
 width:100%;
 height:180px;
@@ -143,7 +126,6 @@ object-fit:cover;
 margin-bottom:10px;
 }
 
-/* TEXT */
 .title{
 font-size:15px;
 font-weight:700;
@@ -155,7 +137,6 @@ font-size:12px;
 color:var(--muted);
 }
 
-/* FOOTER */
 .card-footer{
 display:flex;
 justify-content:space-between;
@@ -163,7 +144,6 @@ align-items:center;
 margin-top:12px;
 }
 
-/* BUTTON */
 .btn-pinjam{
 padding:7px 14px;
 border:none;
@@ -186,21 +166,15 @@ color:#9ca3af;
 cursor:not-allowed;
 }
 
-/* RESPONSIVE FIX */
-@media(max-width:640px){
-.sort{
-width:100%;
-margin-left:0;
-}
-.sort select{
-width:100%;
-}
+@media (max-width: 640px) {
+    .search      { flex: 1 1 100%; }
+    .select-box  { flex: 1 1 calc(50% - 6px); }
+
 }
 </style>
 
 <div class="page">
 
-<!-- TOOLBAR -->
 <div class="toolbar">
 
 <div class="search">
@@ -208,13 +182,15 @@ width:100%;
 <input type="text" id="search" placeholder="Cari buku...">
 </div>
 
-<div class="filters">
-<button class="filter-btn" onclick="filterKategori('Semua')">Semua</button>
-<button class="filter-btn" onclick="filterKategori('Sains')">Sains</button>
-<button class="filter-btn" onclick="filterKategori('Fiksi')">Fiksi</button>
+<div class="select-box">
+<select id="kategori">
+<option value="Semua">Semua</option>
+<option value="Sains">Sains</option>
+<option value="Fiksi">Fiksi</option>
+</select>
 </div>
 
-<div class="sort">
+<div class="select-box sort">
 <select id="sort">
 <option value="az">A-Z</option>
 <option value="za">Z-A</option>
@@ -225,7 +201,6 @@ width:100%;
 
 </div>
 
-<!-- GRID -->
 <div class="grid" id="grid">
 
 @foreach($bukus as $b)
@@ -263,26 +238,33 @@ Pinjam
 <script>
 const searchInput = document.getElementById('search');
 const sortSelect = document.getElementById('sort');
-let currentKategori = 'Semua';
+const kategoriSelect = document.getElementById('kategori');
 
-function filterKategori(kat){
-currentKategori = kat;
-render();
-}
+const cards = Array.from(document.querySelectorAll('.card'));
 
 searchInput.addEventListener('input', render);
 sortSelect.addEventListener('change', render);
+kategoriSelect.addEventListener('change', render);
 
 function render(){
-const cards = Array.from(document.querySelectorAll('.card'));
-
 let filtered = cards.filter(c=>{
 const matchSearch = c.dataset.judul.includes(searchInput.value.toLowerCase());
-const matchKategori = currentKategori === 'Semua' || c.dataset.kategori === currentKategori;
+const matchKategori = kategoriSelect.value === 'Semua' || c.dataset.kategori === kategoriSelect.value;
 return matchSearch && matchKategori;
 });
 
-filtered.sort((a,b)=>{
+cards.forEach(c=>{
+c.style.display = 'none';
+c.style.order = 0;
+});
+
+filtered.forEach(c=>{
+c.style.display = 'flex';
+});
+
+let sorted = [...filtered];
+
+sorted.sort((a,b)=>{
 if(sortSelect.value==='az'){
 return a.dataset.judul.localeCompare(b.dataset.judul);
 }
@@ -297,9 +279,9 @@ return new Date(a.dataset.tanggal)-new Date(b.dataset.tanggal);
 }
 });
 
-const grid = document.getElementById('grid');
-grid.innerHTML='';
-filtered.forEach(c=>grid.appendChild(c));
+sorted.forEach((c,i)=>{
+c.style.order = i;
+});
 }
 </script>
 

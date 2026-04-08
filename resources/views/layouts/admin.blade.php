@@ -271,7 +271,7 @@ Data Siswa
 </div>
 
 <a href="{{ route('logout') }}" class="logout">
-Logout
+Keluar
 </a>
 
 </div>

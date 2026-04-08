@@ -4,6 +4,54 @@
 
 @section('content')
 
+
+
+<style>
+.btn-approve {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #4ade80, #22c55e);
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.btn-approve:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(34,197,94,0.3);
+}
+
+.btn-approve:active {
+    transform: scale(0.96);
+}
+
+.alert-error {
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    color: #be123c;
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    font-size: 13px;
+}
+
+.alert-success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #15803d;
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    font-size: 13px;
+}
+</style>
+
 <div class="page-content">
 
 @if(session('success'))
@@ -12,6 +60,11 @@
 </div>
 @endif
 
+@if(session('error'))
+<div class="alert-error">
+⚠️ {{ session('error') }}
+</div>
+@endif
 
 <div class="stat-grid">
 
@@ -49,26 +102,14 @@
 
 </div>
 
-
 <div class="two-col">
 
 <div>
 
 <div class="section-header">
-
-<span class="section-title">
-⏳ Permintaan Menunggu
-</span>
-
-<a href="{{ route('admin.peminjaman.index') }}"
-class="btn-sm btn-ghost">
-
-Lihat Semua
-
-</a>
-
+<span class="section-title">⏳ Permintaan Menunggu</span>
+<a href="{{ route('admin.peminjaman.index') }}" class="btn-sm btn-ghost">Lihat Semua</a>
 </div>
-
 
 <div class="table-wrap">
 
@@ -103,22 +144,14 @@ Tidak ada permintaan menunggu
 </td>
 
 <td>
-
-<form method="POST"
-action="{{ route('admin.peminjaman.approve', $p->id_peminjaman) }}">
-
+<form method="POST" action="{{ route('admin.peminjaman.approve', $p->id_peminjaman) }}">
 @csrf
 @method('PATCH')
 
-<button type="submit"
-class="btn-sm btn-primary">
-
-✓ Setujui
-
+<button type="submit" class="btn-approve">
+<span>✓</span> Setujui
 </button>
-
 </form>
-
 </td>
 
 </tr>
@@ -135,24 +168,12 @@ class="btn-sm btn-primary">
 
 </div>
 
-
 <div>
 
 <div class="section-header">
-
-<span class="section-title">
-📋 Dipinjam Terbaru
-</span>
-
-<a href="{{ route('admin.peminjaman.index') }}"
-class="btn-sm btn-ghost">
-
-Lihat Semua
-
-</a>
-
+<span class="section-title">📋 Dipinjam Terbaru</span>
+<a href="{{ route('admin.peminjaman.index') }}" class="btn-sm btn-ghost">Lihat Semua</a>
 </div>
-
 
 <div class="table-wrap">
 
@@ -187,13 +208,10 @@ Belum ada peminjaman aktif
 </td>
 
 <td>
-
 @php
 $tgl = \Carbon\Carbon::parse($p->target_pengembalian);
 @endphp
-
 {{ $tgl->format('d M') }}
-
 </td>
 
 </tr>
@@ -213,5 +231,11 @@ $tgl = \Carbon\Carbon::parse($p->target_pengembalian);
 </div>
 
 </div>
+
+<script>
+setTimeout(() => {
+    document.querySelectorAll('.alert-error, .alert-success').forEach(el => el.remove());
+}, 3000);
+</script>
 
 @endsection
